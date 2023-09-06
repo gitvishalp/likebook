@@ -30,7 +30,7 @@ import com.likebook.util.JWTTokenUtil;
 import com.likebook.util.OtpMailSender;
 
 import lombok.AllArgsConstructor;
-
+//Comment added
 @RestController
 @AllArgsConstructor
 @CrossOrigin(origins = "http://localhost:4200")
