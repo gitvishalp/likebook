@@ -53,7 +53,7 @@ public class FriendServiceImpl implements FriendService {
 		newFriend.setFriendshipDate(new Date());
 		friendRepository.save(newFriend);
 		Notification notification = new Notification();
-		notification.setMessage(me.get().getFirstName()+""+me.get().getLastName()+" "+"added you as a Friend!");
+		notification.setMessage(me.get().getFirstName()+" "+me.get().getLastName()+" "+"added you as a Friend!");
 		notification.setNotificationType("FRIEND");
 		notification.setByUser(userId);
 		notification.setToUser(FriendId);

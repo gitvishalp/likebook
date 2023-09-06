@@ -51,6 +51,8 @@ public class PostServiceImpl implements PostService {
 		}
 		if(!request.getFile().isEmpty()) {
 			post.setPicture(ImageUtil.compressImage(request.getFile().getBytes()));
+		}else {
+			post.setPicture(null);
 		}
 		post.setUser(user.get());
 		post.setPostDate(new Date());
