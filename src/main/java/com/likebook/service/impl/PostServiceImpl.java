@@ -127,7 +127,7 @@ public class PostServiceImpl implements PostService {
 		comment.setCommentDate(new Date());
 		commentsRepository.save(comment);
 		Notification notification = new Notification();
-		notification.setMessage(user.get().getFirstName()+" "+user.get().getLastName()+" "+"Commented on Your post"+" : "+post.get().getCaption()+" "+"Comment :"+ request.getComment());
+		notification.setMessage(user.get().getFirstName()+" "+user.get().getLastName()+" "+"Commented : "+ "\""+request.getComment()+"\""+" on Your post"+" : "+post.get().getCaption());
 		notification.setNotificationType("COMMENT");
 		notification.setByUser(userId);
 		notification.setToUser(post.get().getUser().getId());
