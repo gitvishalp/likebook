@@ -76,6 +76,32 @@ public class FriendServiceImpl implements FriendService {
 		}
 		return new Response<>(HttpStatus.SC_OK,"Friend List",friendList);
 	}
+	@Override
+	public Response<List<User>> suggestFriend(String userId){
+		List<Friend> myFriends = friendRepository.findByUserId(userId);
+		List<User> users = userRepository.getAllUsers();
+		if(!myFriends.isEmpty()) {
+			for(int i=0;i<users.size();i++) {
+				for(int j=0;j<myFriends.size();j++) {
+					if(users.get(i).getId().equals(myFriends.get(j).getFriend().getId())) {
+						users.remove(i);
+					}
+				}
+			}
+		}
+		for(int i=0;i<users.size();i++) {
+			if(users.get(i).getId().equals(userId)) {
+				users.remove(users.get(i));
+			}
+		}
+		for(User u:users) {
+				if(u.getProfile()!=null) {
+					byte[] picture = ImageUtil.decompressImage(u.getProfile().getImageData());
+					u.getProfile().setImageData(picture);
+				}
+			}
+		return new Response<>(HttpStatus.SC_OK,"Success",users); 
+	}
 
 	@Override
 	public Response<String> deleteFriend(String userId,String friendId) {

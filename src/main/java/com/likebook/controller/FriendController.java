@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.likebook.entity.Friend;
+import com.likebook.entity.User;
 import com.likebook.repository.AccountTypeRepository;
 import com.likebook.repository.EmailCodeRepository;
 import com.likebook.repository.FriendRepository;
@@ -48,6 +49,10 @@ public class FriendController implements Serializable {
 	@GetMapping("/my-friends")
 	Response<List<Friend>> getFriendList(@RequestHeader (HttpHeaders.AUTHORIZATION)String token){
 		return friendService.myFriends(JWTTokenUtil.getUserIdFromToken(token.substring(7)));
+	}
+	 @GetMapping("/suggest")
+	    public Response<List<User>> getAllUsersList(@RequestHeader(HttpHeaders.AUTHORIZATION)String token){
+	    	return friendService.suggestFriend(JWTTokenUtil.getUserIdFromToken(token.substring(7)));
 	}
 	@DeleteMapping("/{FriendId}")
 	Response<String> deleteFriend(@RequestHeader (HttpHeaders.AUTHORIZATION)String token,@PathVariable("FriendId")String friendId){
