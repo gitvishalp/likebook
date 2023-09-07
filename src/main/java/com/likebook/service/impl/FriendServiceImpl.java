@@ -94,7 +94,6 @@ public class FriendServiceImpl implements FriendService {
 				users.remove(i);
 			}
 		}
-		
 		for(User u:users) {
 				if(u.getProfile()!=null) {
 					byte[] picture = ImageUtil.decompressImage(u.getProfile().getImageData());
