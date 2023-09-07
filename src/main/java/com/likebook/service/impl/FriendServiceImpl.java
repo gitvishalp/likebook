@@ -90,19 +90,17 @@ public class FriendServiceImpl implements FriendService {
 			}
 		}
 		for(int i=0;i<users.size();i++) {
-			if(!users.get(i).isActive()) {
+			if(users.get(i).getId().equals(userId)) {
 				users.remove(i);
 			}
-			if(users.get(i).getId().equals(userId)) {
-				users.remove(users.get(i));
-			}
 		}
+		
 		for(User u:users) {
 				if(u.getProfile()!=null) {
 					byte[] picture = ImageUtil.decompressImage(u.getProfile().getImageData());
 					u.getProfile().setImageData(picture);
 				}
-			}
+		}
 		return new Response<>(HttpStatus.SC_OK,"Success",users); 
 	}
 

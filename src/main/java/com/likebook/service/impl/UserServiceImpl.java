@@ -119,9 +119,9 @@ public class UserServiceImpl implements UserService{
 		otp.setOtp(OneTimePassword);
 		otp.setEmail(request.getEmail());
 		otp.setGeneratedTime(new Date());
-		//String isMailSend = otpMailSender.sendMail(request.getEmail(), OneTimePassword);
+		String isMailSend = otpMailSender.sendMail(request.getEmail(), OneTimePassword);
 		otpRepository.save(otp);
-		return new Response<>("sent db");
+		return new Response<>(isMailSend);
 	}
 
 	@Override
@@ -310,10 +310,10 @@ public class UserServiceImpl implements UserService{
 		code.setCode(OneTimeCode);
 		code.setEmail(email);
 		code.setGeneratedTime(new Date());
-		//String isMailSend = otpMailSender.sendCode(email, OneTimeCode);
+		String isMailSend = otpMailSender.sendCode(email, OneTimeCode);
 		emailCodeRepository.save(code);
 		userRepository.save(user.get());
-		return new Response<>("Mail send");
+		return new Response<>(isMailSend);
 	}
 
 	@Override
