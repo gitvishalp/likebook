@@ -43,4 +43,5 @@ public interface UserService extends Serializable {
 	  Response<List<User>> serachUserByName(String name);	
 	  Response<List<Notification>> getAllNotification(String userId);
 	  Response<String> deleteNotification(String userId,String notificationId);
+	  Response<User> findUserById(String userId);
 }

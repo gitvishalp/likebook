@@ -476,6 +476,11 @@ public class UserServiceImpl implements UserService{
 	     if(users.isEmpty()){
 	    	 return new Response<>(HttpStatus.SC_INTERNAL_SERVER_ERROR,"No user found"); 
 	     }
+	     for(int i=0;i<users.size();i++) {
+	    	 if(!users.get(i).isActive()) {
+	    		users.remove(i); 
+	    	 }
+	     }
 	     for(User u:users) {
 				if(u.getProfile()!=null) {
 					byte[] picture = ImageUtil.decompressImage(u.getProfile().getImageData());
@@ -484,6 +489,19 @@ public class UserServiceImpl implements UserService{
 		}
 	     return new Response<>(HttpStatus.SC_OK,"Success",users);
 	}
+	
+	@Override
+	public  Response<User> findUserById(String userId){
+		Optional<User> user = userRepository.findById(userId);
+		if(user.isEmpty()) {
+			 return new Response<>(HttpStatus.SC_INTERNAL_SERVER_ERROR,"No user found"); 
+		}
+		if(user.get().getProfile()!=null) {
+			byte[] pic = ImageUtil.decompressImage(user.get().getProfile().getImageData());
+			user.get().getProfile().setImageData(pic);
+		}
+		return new Response<>(HttpStatus.SC_OK,"Sucess",user.get());
+}
 
 	@Override
 	public Response<List<Notification>> getAllNotification(String userId) {
@@ -523,4 +541,5 @@ public class UserServiceImpl implements UserService{
 		notificationRepository.delete(notification.get());
 		return new Response<>(HttpStatus.SC_OK,"Success"); 
 	}
+	
 	}

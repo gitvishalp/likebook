@@ -117,6 +117,10 @@ public class UserController implements Serializable {
     public Response<List<User>> searchByName(@PathVariable(name="Name")String name){
     	return userService.serachUserByName(name);
     }
+    @GetMapping("/user/{UserId}")
+    public Response<User> searchById(@PathVariable(name="UserId")String userId){
+    	return userService.findUserById(userId);
+    }
     @GetMapping("/notification")
     public Response<List<Notification>> getAllNotification(@RequestHeader(HttpHeaders.AUTHORIZATION)String token){
     	return userService.getAllNotification(JWTTokenUtil.getUserIdFromToken(token.substring(7)));

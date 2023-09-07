@@ -90,6 +90,9 @@ public class FriendServiceImpl implements FriendService {
 			}
 		}
 		for(int i=0;i<users.size();i++) {
+			if(!users.get(i).isActive()) {
+				users.remove(i);
+			}
 			if(users.get(i).getId().equals(userId)) {
 				users.remove(users.get(i));
 			}
